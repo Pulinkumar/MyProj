@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Splendent.MyProject.Web.UI;
 using Splendent.MyProject.Web.UI.Controllers;
 
-namespace Splendent.MyProject.Web.UI.Unit.Test.Controllers
+namespace Splendent.MyProject.Web.UI.Test.Unit.Controllers
 {
     [TestClass]
     public class HomeControllerTest
