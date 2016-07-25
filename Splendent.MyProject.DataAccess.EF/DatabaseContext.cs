@@ -17,6 +17,7 @@ namespace Splendent.MyProject.DataAccess.EF
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

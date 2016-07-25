@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Splendent.MyProject.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace Splendent.MyProject.Business.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IEmployeeRepository Employees { get; }
-        int Complete();
+        void SaveChanges();
     }
 }

@@ -10,7 +10,7 @@ namespace Splendent.MyProject.DataAccess.EF
 {
     public class EmployeeContext : BaseDbContext<EmployeeContext>
     {
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Employee> Employee { get; set; }
 
         protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         {

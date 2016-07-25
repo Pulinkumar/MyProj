@@ -4,27 +4,26 @@ using Splendent.MyProject.Entities;
 using Splendent.MyProject.Business.Interfaces;
 using Splendent.MyProject.Infrastructure.IOC;
 using Microsoft.Practices.Unity;
-using Splendent.MyProject.DataAccess.EF;
 using Splendent.MyProject.Business.Repository;
 
 namespace Splendent.MyProject.Web.UI.Controllers
 {
     public class EmployeeController : BaseController
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUnitOfWork unitofWork;
         public EmployeeController()
-            : this(IoC.Container.Resolve<IEmployeeRepository>())
+            : this(IoC.Container.Resolve<IUnitOfWork>())
         {
         }
 
-        public EmployeeController(IEmployeeRepository employeeBL)
+        public EmployeeController(IUnitOfWork unitofWork)
         {
-            this._employeeRepository = employeeBL;
+            this.unitofWork = unitofWork;
         }
 
         public ActionResult Index()
         {
-            return View(_employeeRepository.GetAll());
+            return View(unitofWork.Employees.GetAll());
         }
 
         public ActionResult Details(int? id)
@@ -33,7 +32,7 @@ namespace Splendent.MyProject.Web.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = _employeeRepository.SingleOrDefault(e => e.EmployeeID == id);  //_employeeRepository.Get((int)id);
+            Employee employee = unitofWork.Employees.SingleOrDefault(e => e.EmployeeID == id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -52,8 +51,8 @@ namespace Splendent.MyProject.Web.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _employeeRepository.Add(employee);
-                _employeeRepository.Complete();
+                unitofWork.Employees.Add(employee);
+                unitofWork.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +65,7 @@ namespace Splendent.MyProject.Web.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = _employeeRepository.Get((int)id);
+            Employee employee = unitofWork.Employees.Get((int)id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -80,8 +79,8 @@ namespace Splendent.MyProject.Web.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _employeeRepository.Update(employee);
-                _employeeRepository.Complete();
+                unitofWork.Employees.Update(employee);
+                unitofWork.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(employee);
@@ -93,7 +92,7 @@ namespace Splendent.MyProject.Web.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = _employeeRepository.Get((int)id); //_employeeRepository.GetByID((int)id);
+            Employee employee = unitofWork.Employees.Get((int)id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -105,10 +104,9 @@ namespace Splendent.MyProject.Web.UI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var emp = _employeeRepository.Get(id);
-            _employeeRepository.Remove(emp);
-            _employeeRepository.Complete();
-            //_employeeRepository.DeleteEmployee(id);
+            var emp = unitofWork.Employees.Get(id);
+            unitofWork.Employees.Remove(emp);
+            unitofWork.SaveChanges();
             return RedirectToAction("Index");
         }
 

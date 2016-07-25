@@ -1,33 +1,60 @@
 ﻿using Splendent.MyProject.Business.Interfaces;
 using Splendent.MyProject.DataAccess.EF;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Splendent.MyProject.Business.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly EmployeeContext _context;
+        private DatabaseContext dbContext = null;
 
-        public UnitOfWork(EmployeeContext context)
+        public UnitOfWork()
         {
-            _context = context;
-            Employees = new EmployeeRepository(_context);
+            dbContext = new DatabaseContext();
         }
 
-        public IEmployeeRepository Employees { get; private set; }
-
-        public int Complete()
+        IEmployeeRepository employeeRepository = null;
+        public IEmployeeRepository Employees
         {
-            return _context.SaveChanges();
+            get
+            {
+                if (employeeRepository == null)
+                {
+                    employeeRepository = new EmployeeRepository(dbContext);
+                }
+                return employeeRepository;
+            }
+        }
+
+
+        public void SaveChanges()
+        {
+            dbContext.SaveChanges();
+        }
+
+
+        #region " Dispose "
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    dbContext.Dispose();
+                }
+            }
+            this.disposed = true;
         }
 
         public void Dispose()
         {
-            _context.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+
+        #endregion
     }
 }
