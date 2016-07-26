@@ -10,6 +10,7 @@ namespace Splendent.MyProject.Business.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         IEmployeeRepository Employees { get; }
+        IDepartmentRepository Departments { get; }
         void SaveChanges();
     }
 }

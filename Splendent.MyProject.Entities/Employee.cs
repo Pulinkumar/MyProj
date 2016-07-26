@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Splendent.MyProject.Entities
 {
@@ -28,6 +29,11 @@ namespace Splendent.MyProject.Entities
         //[DataType(DataType.EmailAddress)]
         //public string Email { get; set; }
 
+        public int DepartmentID { get; set; }
+        
+        [ForeignKey("DepartmentID")]
+        public Department Department { get; set; }
+             
         #endregion
 
         public string EmployeeName

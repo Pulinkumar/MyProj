@@ -1,6 +1,7 @@
 ﻿using Splendent.MyProject.Business.Interfaces;
 using Splendent.MyProject.DataAccess.EF;
 using System;
+using System.EnterpriseServices;
 
 namespace Splendent.MyProject.Business.Repository
 {
@@ -26,6 +27,18 @@ namespace Splendent.MyProject.Business.Repository
             }
         }
 
+        IDepartmentRepository departmentRepository = null;
+        public IDepartmentRepository Departments
+        {
+            get
+            {
+                if (departmentRepository == null)
+                {
+                    departmentRepository = new DepartmentRepository(dbContext);
+                }
+                return departmentRepository;
+            }
+        }
 
         public void SaveChanges()
         {
