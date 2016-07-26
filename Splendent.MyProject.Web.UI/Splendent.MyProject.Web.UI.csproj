@@ -289,10 +289,6 @@
       <Project>{4cf03cee-f48a-40d6-8739-72bd9a57d46f}</Project>
       <Name>Splendent.MyProject.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Splendent.MyProject.DataAccess.EF\Splendent.MyProject.DataAccess.EF.csproj">
-      <Project>{7a3f69e8-d994-4b9f-8216-eaac98015488}</Project>
-      <Name>Splendent.MyProject.DataAccess.EF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Splendent.MyProject.Entities\Splendent.MyProject.Entities.csproj">
       <Project>{fe8a78ba-3537-41da-bd4b-4e51a57ba4c2}</Project>
       <Name>Splendent.MyProject.Entities</Name>
