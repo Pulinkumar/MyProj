@@ -52,6 +52,11 @@
     <Compile Include="BaseDbContext.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="EmployeeContext.cs" />
+    <Compile Include="Migrations\201607251620245_Initial_Db_Changes.cs" />
+    <Compile Include="Migrations\201607251620245_Initial_Db_Changes.Designer.cs">
+      <DependentUpon>201607251620245_Initial_Db_Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +68,11 @@
       <Project>{fe8a78ba-3537-41da-bd4b-4e51a57ba4c2}</Project>
       <Name>Splendent.MyProject.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201607251620245_Initial_Db_Changes.resx">
+      <DependentUpon>201607251620245_Initial_Db_Changes.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
