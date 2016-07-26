@@ -12,57 +12,95 @@ namespace Splendent.MyProject.Business.Repository
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext Context;
-        protected readonly DbSet<TEntity> _entities;
+        protected readonly DbSet<TEntity> dbSet;
 
         public Repository(DbContext context)
         {
             Context = context;
-            _entities = Context.Set<TEntity>();
+            dbSet = Context.Set<TEntity>();
         }
 
         public TEntity Get(int id)
         {
-            return _entities.Find(id);
+            return dbSet.Find(id);
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return _entities.ToList();
+            return dbSet.ToList();
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public virtual IEnumerable<TEntity> Find( Expression<Func<TEntity, bool>> filter = null,
+                                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                                  string includeProperties = "")
         {
-            return _entities.Where(predicate);
+            IQueryable<TEntity> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
         }
 
         public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return _entities.SingleOrDefault(predicate);
+            return dbSet.SingleOrDefault(predicate);
         }
+
+
 
         public void Add(TEntity entity)
         {
-            _entities.Add(entity);
+            dbSet.Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
         {
-            _entities.AddRange(entities);
+            dbSet.AddRange(entities);
         }
+
+
 
         public void Update(TEntity entity)
         {
+            dbSet.Attach(entity);
             Context.Entry<TEntity>(entity).State = System.Data.Entity.EntityState.Modified;
         }
 
-        public void Remove(TEntity entity)
+
+        public virtual void Remove(object id)
         {
-            _entities.Remove(entity);
+            TEntity entityToDelete = dbSet.Find(id);
+            Remove(entityToDelete);
+        }
+
+        public void Remove(TEntity entityToDelete)
+        {
+            if (Context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                dbSet.Attach(entityToDelete);
+            }
+            dbSet.Remove(entityToDelete);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            _entities.RemoveRange(entities);
+            dbSet.RemoveRange(entities);
         }
 
     }

@@ -12,7 +12,9 @@ namespace Splendent.MyProject.Business.Interfaces
         //Search Records
         TEntity Get(int id);
         IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter,
+                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+                                  string includeProperties);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
 
@@ -25,6 +27,7 @@ namespace Splendent.MyProject.Business.Interfaces
         void Update(TEntity entity);
 
         //Remove Records
+        void Remove(object id);
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
 
