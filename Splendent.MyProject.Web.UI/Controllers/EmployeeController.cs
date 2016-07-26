@@ -112,10 +112,10 @@ namespace Splendent.MyProject.Web.UI.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            //if (disposing)
-            //{
-            //    employeeBL = null;
-            //}
+            if (disposing)
+            {
+                unitofWork.Dispose();
+            }
             base.Dispose(disposing);
         }
     }
