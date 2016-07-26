@@ -40,6 +40,16 @@ namespace Splendent.MyProject.Business.Repository
             }
         }
 
+        public void BeginTransaction()
+        {
+            //dbContext.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
+        }
+
+        public void CommitTransaction()
+        {
+            //dbContext.Database.Connection.
+        }
+
         public void SaveChanges()
         {
             dbContext.SaveChanges();

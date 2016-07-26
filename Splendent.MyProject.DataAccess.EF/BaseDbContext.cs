@@ -14,7 +14,7 @@ namespace Splendent.MyProject.DataAccess.EF
             Database.SetInitializer<TContext>(null);
         }
         protected BaseDbContext()
-            : base("name=SplendentDBString")
+            : base("name=DBString")
         {
         }
 

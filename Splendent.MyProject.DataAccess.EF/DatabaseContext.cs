@@ -11,9 +11,10 @@ namespace Splendent.MyProject.DataAccess.EF
     public class DatabaseContext : DbContext
     {
         public DbSet<Employee> Employee { get; set; }
+        public DbSet<Department> Department { get; set; }
 
         public DatabaseContext()
-            : base("name=SplendentDBString")
+            : base("name=DBString")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
