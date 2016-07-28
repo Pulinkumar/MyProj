@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Splendent.MyProject.Web.UI.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F25ABA5-9D14-43B4-B313-A32FF5B57896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Splendent.MyProject.Web.UI.Test.Intergration", "Splendent.MyProject.Web.UI.Test.Intergration\Splendent.MyProject.Web.UI.Test.Intergration.csproj", "{11DE859D-3173-4A5B-B544-33701B4F2524}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Splendent.MyProject.Web.UI.Test.Integration", "Splendent.MyProject.Web.UI.Test.Intergration\Splendent.MyProject.Web.UI.Test.Integration.csproj", "{11DE859D-3173-4A5B-B544-33701B4F2524}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation Layer", "Presentation Layer", "{F89A8104-ED80-4A3E-AACC-DFB14FC267D2}"
 EndProject
