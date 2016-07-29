@@ -5,6 +5,7 @@ using Splendent.MyProject.Business.Interfaces;
 using Splendent.MyProject.Infrastructure.IOC;
 using Microsoft.Practices.Unity;
 using Splendent.MyProject.Web.UI.Models;
+using System;
 
 namespace Splendent.MyProject.Web.UI.Controllers
 {
@@ -30,10 +31,20 @@ namespace Splendent.MyProject.Web.UI.Controllers
         [HttpPost]
         public ActionResult Index(EmployeeDepartmentViewModel employeeDepartmentViewModel)
         {
-            unitofWork.Departments.Add(employeeDepartmentViewModel.Department);
-            unitofWork.Employees.Add(employeeDepartmentViewModel.Employee);
-            unitofWork.SaveChanges();
+            try
+            {
+                unitofWork.BeginTransaction();
 
+                unitofWork.Departments.Add(employeeDepartmentViewModel.Department);
+                unitofWork.Employees.Add(employeeDepartmentViewModel.Employee);
+                unitofWork.SaveChanges();
+
+                unitofWork.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                unitofWork.RollbackTransaction();
+            }
             return View();
         }
     }

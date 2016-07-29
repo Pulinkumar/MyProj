@@ -1,6 +1,7 @@
 ﻿using Splendent.MyProject.Business.Interfaces;
 using Splendent.MyProject.DataAccess.EF;
 using System;
+using System.Data.Entity;
 using System.EnterpriseServices;
 
 namespace Splendent.MyProject.Business.Repository
@@ -8,11 +9,14 @@ namespace Splendent.MyProject.Business.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private DatabaseContext dbContext = null;
+        private DbContextTransaction dbTran;
 
         public UnitOfWork()
         {
             dbContext = new DatabaseContext();
         }
+
+        #region " Entities "
 
         IEmployeeRepository employeeRepository = null;
         public IEmployeeRepository Employees
@@ -40,14 +44,23 @@ namespace Splendent.MyProject.Business.Repository
             }
         }
 
+        #endregion
+
+        #region " DB Transaction "
+
         public void BeginTransaction()
         {
-            //dbContext.Database.BeginTransaction(System.Data.IsolationLevel.Serializable);
+            dbTran = dbContext.Database.BeginTransaction();
         }
 
         public void CommitTransaction()
         {
-            //dbContext.Database.Connection.
+            dbTran.Commit();
+        }
+
+        public void RollbackTransaction()
+        {
+            dbTran.Rollback();
         }
 
         public void SaveChanges()
@@ -55,6 +68,7 @@ namespace Splendent.MyProject.Business.Repository
             dbContext.SaveChanges();
         }
 
+        #endregion
 
         #region " Dispose "
 

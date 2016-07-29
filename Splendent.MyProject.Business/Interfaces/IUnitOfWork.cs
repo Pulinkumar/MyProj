@@ -12,5 +12,9 @@ namespace Splendent.MyProject.Business.Interfaces
         IEmployeeRepository Employees { get; }
         IDepartmentRepository Departments { get; }
         void SaveChanges();
+
+        void BeginTransaction();
+        void CommitTransaction();
+        void RollbackTransaction();
     }
 }
