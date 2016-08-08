@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,12 @@
   <ItemGroup>
     <Compile Include="BaseDbContext.cs" />
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="DataContextFactory.cs" />
+    <Compile Include="DataContextStorage\DataContextStorageFactory.cs" />
+    <Compile Include="DataContextStorage\HttpDataContextStorageContainer.cs" />
+    <Compile Include="DataContextStorage\IDataContextStorageContainer.cs" />
+    <Compile Include="DataContextStorage\ThreadDataContextStorageContainer.cs" />
+    <Compile Include="EFHelper.cs" />
     <Compile Include="Migrations\201607251620245_Initial_Db_Changes.cs" />
     <Compile Include="Migrations\201607251620245_Initial_Db_Changes.Designer.cs">
       <DependentUpon>201607251620245_Initial_Db_Changes.cs</DependentUpon>

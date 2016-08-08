@@ -32,7 +32,7 @@ namespace Splendent.MyProject.Business.Repository
 
         public virtual IEnumerable<TEntity> Find( Expression<Func<TEntity, bool>> filter = null,
                                                   Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-                                                  string includeProperties = "")
+                                                  string includeProperties = null)
         {
             IQueryable<TEntity> query = dbSet;
 
@@ -41,10 +41,13 @@ namespace Splendent.MyProject.Business.Repository
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            if (includeProperties != null)
             {
-                query = query.Include(includeProperty);
+                foreach (var includeProperty in includeProperties.Split
+                    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
             }
 
             if (orderBy != null)

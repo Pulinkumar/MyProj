@@ -12,9 +12,9 @@ namespace Splendent.MyProject.Business.Interfaces
         //Search Records
         TEntity Get(int id);
         IEnumerable<TEntity> GetAll();
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter,
-                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
-                                  string includeProperties);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter = null,
+                                  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                  string includeProperties = null);
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
 
