@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using System.Data.Entity;
 
 namespace Splendent.MyProject.Web.UI.App_Start
 {
@@ -37,7 +38,7 @@ namespace Splendent.MyProject.Web.UI.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
-
+            //container.RegisterType<DbContext, DatabaseContext>(new HierarchicalLifetimeManager());
 
         }
     }
